@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>〇〇研究室 | △△大学</title>
+  <meta name="description" content="〇〇大学 〇〇学部 〇〇研究室の公式Webサイトです。研究内容、所属メンバー、最新の業績や配属情報を掲載しています。">
+
+  <!-- X (Twitter) & SNS共有用設定 (OGP) -->
+  <meta property="og:title" content="〇〇研究室 | △△大学">
+  <meta property="og:description" content="〇〇大学 〇〇学部 〇〇研究室の公式Webサイトです。">
+  <meta property="og:type" content="website">
+  <!-- 公開後のURLに書き換えてください -->
+  <meta property="og:url" content="https://your-username.github.io/your-repo/">
+  <!-- サムネイル画像がある場合はそのURLを指定（任意） -->
+  <meta property="og:image" content="https://your-username.github.io/your-repo/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    :root {
+      --primary-color: #1e3a8a; /* 落ち着いたアカデミックネイビー */
+      --secondary-color: #2563eb;
+      --text-main: #1f2937;
+      --text-sub: #4b5563;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --border-color: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.75;
+      color: var(--text-main);
+      background-color: var(--bg-white);
+      scroll-behavior: smooth;
+    }
+
+    /* ヘッダー */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--secondary-color);
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 5rem 1.5rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-affiliation {
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    /* コンテナ & セクション共通 */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem;
+    }
+
+    section:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.85rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* お知らせ (News) */
+    .news-list {
+      list-style: none;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .news-item {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .news-meta {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 0.25rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .news-tag {
+      background-color: #dbeafe;
+      color: var(--primary-color);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* 研究内容 (Cards) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    /* 業績・配属情報 */
+    .list-styled {
+      padding-left: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .list-styled li {
+      margin-bottom: 0.75rem;
+    }
+
+    /* フッター */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 3rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid #1e293b;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.85rem;
+      }
+      nav ul {
+        display: none; /* スマホ簡易対応（必要に応じてハンバーガーメニューへ拡張可能） */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">〇〇研究室</a>
+      <nav>
+        <ul>
+          <li><a href="#about">概要</a></li>
+          <li><a href="#news">お知らせ</a></li>
+          <li><a href="#research">研究内容</a></li>
+          <li><a href="#members">メンバー</a></li>
+          <li><a href="#publications">研究業績</a></li>
+          <li><a href="#students">配属希望の方へ</a></li>
+          <li><a href="#contact">アクセス</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーローエリア -->
+  <div class="hero">
+    <div class="hero-content">
+      <p class="hero-affiliation">〇〇大学 〇〇学部 〇〇学科</p>
+      <h1 class="hero-title">〇〇研究室<br>(Laboratory Name)</h1>
+      <p class="hero-description">
+        私たちの研究室では、〇〇技術と〇〇の融合により、次世代の〇〇の実現を目指しています。<br>
+        理論の探究から社会実装まで、意欲的な研究を展開しています。
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <!-- 概要 (About) -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">研究室について</h2>
+        <p class="section-subtitle">About Us</p>
+        <p style="max-width: 800px; margin: 0 auto; text-align: justify;">
+          当研究室は、〇〇年に発足した研究室です。「〇〇〇〇」をスローガンに掲げ、国内外の大学・研究機関および企業との共同研究を積極的に推進しています。学生が自発的に問いを立て、世界最先端の成果を発信できる環境づくりを重視しています。
+        </p>
+      </div>
+    </section>
+
+    <!-- お知らせ (News) -->
+    <section id="news">
+      <div class="container">
+        <h2 class="section-title">お知らせ</h2>
+        <p class="section-subtitle">News & Topics</p>
+        <ul class="news-list">
+          <li class="news-item">
+            <div class="news-meta">
+              <span>2026.10.01</span>
+              <span class="news-tag">学会発表</span>
+            </div>
+            <div>M2の〇〇さんが〇〇国際会議にて研究発表を行いました。</div>
+          </li>
+          <li class="news-item">
+            <div class="news-meta">
+              <span>2026.09.15</span>
+              <span class="news-tag">論文採択</span>
+            </div>
+            <div>学術論文「〇〇〇〇〇〇」が〇〇ジャーナルに採択されました。</div>
+          </li>
+          <li class="news-item">
+            <div class="news-meta">
+              <span>2026.07.20</span>
+              <span class="news-tag">イベント</span>
+            </div>
+            <div>オープンキャンパスにて研究室公開を実施しました。</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 研究内容 (Research) -->
+    <section id="research">
+      <div class="container">
+        <h2 class="section-title">研究内容</h2>
+        <p class="section-subtitle">Research Themes</p>
+        <div class="card-grid">
+          <div class="card">
+            <h3>1. 〇〇に関する研究</h3>
+            <p>概要テキストをここに記載します。どのような課題に対して、どういったアプローチで解決を試みているかを2〜3行で簡潔にまとめます。</p>
+          </div>
+          <div class="card">
+            <h3>2. 〇〇アルゴリズムの開発</h3>
+            <p>概要テキストをここに記載します。どのような応用先があるのか（例：医療、ロボティクス、自動運転など）を明記すると魅力が伝わりやすくなります。</p>
+          </div>
+          <div class="card">
+            <h3>3. 〇〇の社会実装・共同研究</h3>
+            <p>産学連携や企業との共同プロジェクトについて記載します。実社会でどのように役立つ技術なのかをアピールします。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- メンバー (Members) -->
+    <section id="members">
+      <div class="container">
+        <h2 class="section-title">メンバー</h2>
+        <p class="section-subtitle">Members</p>
+        <div class="card-grid">
+          <div class="card">
+            <h3>教授：氏名（Name）</h3>
+            <p><strong>専門分野:</strong> 〇〇学、〇〇工学</p>
+            <p><strong>担当講義:</strong> 〇〇概論、〇〇実験</p>
+            <p style="margin-top: 0.5rem;"><a href="#" style="color: var(--secondary-color);">researchmap / Google Scholar &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h3>在籍学生</h3>
+            <ul class="list-styled" style="margin-top: 0.5rem;">
+              <li>博士課程（D）：〇名</li>
+              <li>修士課程（M）：〇名</li>
+              <li>学部生（B4）：〇名</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 研究業績 (Publications) -->
+    <section id="publications">
+      <div class="container">
+        <h2 class="section-title">主な研究業績</h2>
+        <p class="section-subtitle">Selected Publications</p>
+        <div style="max-width: 800px; margin: 0 auto;">
+          <h3 style="margin-bottom: 1rem; color: var(--primary-color);">学術論文（査読付き）</h3>
+          <ol class="list-styled">
+            <li>Author A, Author B, "Paper Title Here", <em>Journal Name</em>, Vol. 0, No. 0, pp. 1-10, 2026. DOI: xxxxxxxx</li>
+            <li>Author A, Author C, "Paper Title Here", <em>Journal Name</em>, Vol. 0, No. 0, pp. 1-10, 2025.</li>
+          </ol>
+          <a href="#" class="btn" style="margin-top: 1.5rem;">業績一覧を見る (外部リンク)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 配属希望の方へ (For Students) -->
+    <section id="students">
+      <div class="container">
+        <h2 class="section-title">配属・進学希望の方へ</h2>
+        <p class="section-subtitle">For Prospective Students</p>
+        <div style="max-width: 800px; margin: 0 auto;">
+          <p style="margin-bottom: 1rem;">
+            学部3・4年生の卒業研究配属、および他大学・高専からの大学院進学（修士・博士）を歓迎しています。
+          </p>
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.1rem;">求める人物像・スキル</h3>
+            <ul class="list-styled" style="margin-top: 0.5rem;">
+              <li>新しい技術や数学・プログラミングに知的好奇心を持てる方</li>
+              <li>自主的に考え、手を動かして実験・検証を進められる方</li>
+              <li>事前の専門知識よりも、入学・配属後の学習意欲を重視します</li>
+            </ul>
+          </div>
+          <p>
+            研究室見学やオンラインでの面談は随時受け付けています。希望される方は、下記のお問い合わせ先よりお気軽にご連絡ください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- お問い合わせ・アクセス (Contact) -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">アクセス & 連絡先</h2>
+        <p class="section-subtitle">Access & Contact</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <p><strong>所在地:</strong> 〒000-0000 〇〇県〇〇市〇〇町 1-2-3</p>
+          <p>〇〇大学 〇〇キャンパス 〇号館 〇階 〇〇研究室</p>
+          <p style="margin-top: 1rem;"><strong>E-mail:</strong> contact [at] example.ac.jp</p>
+          <p style="margin-top: 0.5rem;"><strong>公式X (Twitter):</strong> <a href="https://x.com/your_lab_account" target="_blank" style="color: var(--secondary-color);">@your_lab_account</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3 style="color: #fff; margin-bottom: 0.5rem;">〇〇大学 〇〇研究室</h3>
+        <p>Laboratory Name, Department, University</p>
+      </div>
+      <div>
+        <p><a href="https://x.com/your_lab_account" style="color: #94a3b8; text-decoration: none;">公式Xアカウント</a></p>
+        <p><a href="#" style="color: #94a3b8; text-decoration: none;">大学公式サイト</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Laboratory Name. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
