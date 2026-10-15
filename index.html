@@ -2,668 +2,1005 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>〇〇研究室 | △△大学</title>
-  <meta name="description" content="〇〇大学 〇〇学部 〇〇研究室の公式Webサイトです。研究内容、所属メンバー、最新の業績や配属情報を掲載しています。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>〇〇 LAB | SIT – 〇〇大学 〇〇研究室</title>
+  <meta name="description" content="〇〇大学 〇〇学部 〇〇研究室の公式Webサイト。数理モデリング・アルゴリズム・社会実装に関する研究内容、業績、配属情報を掲載しています。">
 
-  <!-- X (Twitter) & SNS共有用設定 (OGP) -->
-  <meta property="og:title" content="〇〇研究室 | △△大学">
-  <meta property="og:description" content="〇〇大学 〇〇学部 〇〇研究室の公式Webサイトです。研究テーマ、メンバー、研究業績を公開中。">
+  <!-- X (Twitter) OGP設定 -->
+  <meta property="og:title" content="〇〇 LAB | SIT – 〇〇大学 〇〇研究室">
+  <meta property="og:description" content="情報数理と先端技術で、実社会の複雑な課題を解き明かす。〇〇研究室 公式Webサイト。">
   <meta property="og:type" content="website">
-  <!-- 公開後のURLに書き換えてください -->
-  <meta property="og:url" content="https://your-username.github.io/your-repo/">
-  <!-- サムネイル画像がある場合は指定 -->
-  <meta property="og:image" content="https://your-username.github.io/your-repo/ogp.jpg">
+  <meta property="og:url" content="https://hashimotoy7777-cyber.github.io/lab-website/">
+  <meta property="og:image" content="https://hashimotoy7777-cyber.github.io/lab-website/ogp.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Google Fonts: 脱AI感を演出する Plus Jakarta Sans (欧文) & Zen Kaku Gothic New (和文) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
-    /* ==========================================================
-       デジタル庁デザインシステム準拠 デザイントークン
-       ========================================================== */
+    /* ==========================================================================
+       1. Design Tokens (デジタル庁準拠のコントラスト・余白 + 脱AIの3色原則)
+       ========================================================================== */
     :root {
-      /* カラーパレット（WCAG 2.1 AA コントラスト準拠） */
-      --color-primary: #004ea1;           /* デジタル庁ブルー（メイン・リンク） */
-      --color-primary-hover: #002d62;     /* ホバー時の暗い青 */
-      --color-primary-subtle: #eaf2fc;    /* お知らせ枠等の淡い青 */
-      --color-text-main: #1a1a1a;         /* 本文テキスト（コントラスト比重視） */
-      --color-text-sub: #454545;          /* 補助テキスト・日付 */
-      --color-bg-page: #ffffff;           /* ページ背景 */
-      --color-bg-surface: #f8f9fa;        /* セクションやカードの薄灰背景 */
-      --color-border: #d1d5db;            /* 境界線 */
-      --color-focus: #ffbf47;             /* フォーカスリング用イエロー */
-      --color-focus-inner: #000000;       /* 2重フォーカス内枠 */
+      /* 配色：白基調 + チャコール文字 + アクセント1色のみ */
+      --bg-base: #ffffff;
+      --bg-subtle: #f6f7f9;
+      --text-primary: #111827;      /* コントラスト比 15:1 以上 */
+      --text-secondary: #4b5563;    /* コントラスト比 7:1 以上 */
+      --text-muted: #6b7280;
+      --accent: #004191;            /* アカデミック・ディープブルー */
+      --accent-subtle: #eef4fc;
+      --border-hairline: #e5e7eb;   /* 1pxの極細直線 */
+      --border-strong: #111827;
+      --focus-ring: #ffbf47;        /* デジタル庁準拠フォーカス色 */
 
-      /* スペーシング（8px基本グリッド） */
-      --space-xs: 4px;
-      --space-sm: 8px;
-      --space-md: 16px;
-      --space-lg: 24px;
-      --space-xl: 32px;
-      --space-2xl: 48px;
-      --space-3xl: 64px;
+      /* タイポグラフィ */
+      --font-sans: "Plus Jakarta Sans", "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif;
 
-      /* タイポグラフィ（可読性重視のフォントスタック） */
-      --font-family-base: "BIZ UDPGothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-      --line-height-base: 1.75;
-      --line-height-heading: 1.35;
+      /* 余白（近接と疎密の設計） */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 16px;
+      --space-4: 24px;
+      --space-5: 40px;
+      --space-6: 64px;
+      --space-7: 96px;
+
+      /* レイアウト幅 */
+      --max-width: 1120px;
+      --bottom-nav-height: 64px;
     }
 
-    /* 基本リセット */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
     body {
-      font-family: var(--font-family-base);
-      font-size: 1rem;
-      line-height: var(--line-height-base);
-      color: var(--color-text-main);
-      background-color: var(--color-bg-page);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      background-color: var(--bg-base);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
       -webkit-font-smoothing: antialiased;
+      font-feature-settings: "palt";
     }
 
-    /* ==========================================================
-       アクセシビリティ共通設定
-       ========================================================== */
-    /* キーボード操作時のフォーカス表示（極めて重要） */
+    /* アクセシビリティ：フォーカスリング（デジタル庁仕様） */
     :focus-visible {
-      outline: 3px solid var(--color-focus);
+      outline: 3px solid var(--focus-ring);
       outline-offset: 2px;
-      box-shadow: 0 0 0 1px var(--color-focus-inner);
+      box-shadow: 0 0 0 1px #000000;
     }
 
-    /* メインコンテンツへのスキップリンク（読み上げ・キーボード配慮） */
     .skip-link {
       position: absolute;
-      top: -999px;
+      top: -100px;
       left: 16px;
-      background: var(--color-primary);
+      background: var(--text-primary);
       color: #ffffff;
       padding: 8px 16px;
       font-weight: 700;
       z-index: 9999;
       text-decoration: none;
-      border-radius: 4px;
     }
     .skip-link:focus {
       top: 16px;
     }
 
-    /* リンクの基本スタイル */
     a {
-      color: var(--color-primary);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      transition: color 0.15s ease;
-    }
-    a:hover {
-      color: var(--color-primary-hover);
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease, opacity 0.15s ease;
     }
 
-    /* ==========================================================
-       レイアウト & ヘッダー
-       ========================================================== */
-    header {
-      background-color: #ffffff;
-      border-bottom: 2px solid var(--color-primary);
+    /* ==========================================================================
+       2. Top Navigation Bar (PC/Tablet)
+       ========================================================================== */
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-hairline);
     }
 
-    .header-container {
-      max-width: 1080px;
+    .header-inner {
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: var(--space-md) var(--space-lg);
+      padding: 0 var(--space-4);
+      height: 68px;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: var(--space-md);
+      justify-content: space-between;
     }
 
-    .site-brand {
+    .brand {
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
+      gap: 12px;
     }
 
-    .site-affiliation {
+    .brand-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-divider {
+      color: var(--border-hairline);
+    }
+
+    .brand-sub {
       font-size: 0.8125rem;
-      color: var(--color-text-sub);
+      color: var(--text-secondary);
       font-weight: 500;
     }
 
-    .site-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-text-main);
-      text-decoration: none;
-    }
-    .site-title:hover {
-      text-decoration: underline;
-    }
-
-    nav ul {
+    .top-nav ul {
       display: flex;
       list-style: none;
-      gap: var(--space-lg);
-      flex-wrap: wrap;
+      gap: 28px;
     }
 
-    nav a {
-      color: var(--color-text-main);
+    .top-nav a {
+      font-size: 0.8125rem;
       font-weight: 700;
-      font-size: 0.9375rem;
-      text-decoration: none;
-      padding: var(--space-xs) 0;
-      border-bottom: 2px solid transparent;
-    }
-
-    nav a:hover {
-      color: var(--color-primary);
-      border-bottom-color: var(--color-primary);
-    }
-
-    /* ==========================================================
-       ヒーローエリア（公的・学術的な落ち着いたトーン）
-       ========================================================== */
-    .hero {
-      background-color: var(--color-bg-surface);
-      border-bottom: 1px solid var(--color-border);
-      padding: var(--space-3xl) var(--space-lg);
-    }
-
-    .hero-container {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .hero-lead-badge {
-      display: inline-block;
-      background-color: var(--color-primary-subtle);
-      color: var(--color-primary);
-      font-size: 0.875rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 4px;
-      margin-bottom: var(--space-md);
-    }
-
-    .hero-headline {
-      font-size: 2.25rem;
-      font-weight: 700;
-      line-height: var(--line-height-heading);
-      color: var(--color-text-main);
-      margin-bottom: var(--space-md);
-    }
-
-    .hero-text {
-      font-size: 1.125rem;
-      color: var(--color-text-sub);
-      max-width: 820px;
-      line-height: 1.8;
-    }
-
-    /* ==========================================================
-       セクション共通
-       ========================================================== */
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: var(--space-3xl) var(--space-lg);
-    }
-
-    .section-header {
-      margin-bottom: var(--space-xl);
-      padding-bottom: var(--space-sm);
-      border-bottom: 2px solid var(--color-border);
-    }
-
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--color-text-main);
-      line-height: var(--line-height-heading);
-    }
-
-    .section-subtitle {
-      font-size: 0.875rem;
-      color: var(--color-text-sub);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 2px;
+      color: var(--text-secondary);
+      padding: 8px 0;
+      position: relative;
     }
 
-    /* ==========================================================
-       デジタル庁風 コールアウト（告知バナー）
-       ========================================================== */
-    .ds-callout {
-      background-color: var(--color-primary-subtle);
-      border-left: 6px solid var(--color-primary);
-      padding: var(--space-lg);
-      border-radius: 0 4px 4px 0;
-      margin-bottom: var(--space-2xl);
+    .top-nav a:hover {
+      color: var(--text-primary);
     }
 
-    .ds-callout-title {
-      font-size: 1.125rem;
+    /* ==========================================================================
+       3. Editorial Hero (非対称・タイポグラフィ主導・グラデーション排除)
+       ========================================================================== */
+    .hero {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-7) var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .hero-kicker {
+      font-size: 0.8125rem;
       font-weight: 700;
-      color: var(--color-primary);
-      margin-bottom: var(--space-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+      display: block;
     }
 
-    /* ==========================================================
-       お知らせ（News）
-       ========================================================== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.2vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.28;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .hero-lead {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.9;
+    }
+
+    .hero-meta {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-6);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-meta strong {
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* ==========================================================================
+       4. Editorial 2-Column Section Layout (MASUKO LAB風 + デジタル庁の余白設計)
+       ========================================================================== */
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    @media (min-width: 860px) {
+      .hero-grid {
+        grid-template-columns: 1.3fr 1fr;
+        align-items: end;
+      }
+      .section-grid {
+        grid-template-columns: 260px 1fr;
+        gap: var(--space-6);
+      }
+      .section-head {
+        position: sticky;
+        top: 96px;
+        align-self: start;
+      }
+    }
+
+    .section-en {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-jp {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       5. News (枠線を排し、直線と等幅数字で整列)
+       ========================================================================== */
     .news-list {
       list-style: none;
-      border-top: 1px solid var(--color-border);
     }
 
     .news-item {
-      padding: var(--space-md) 0;
-      border-bottom: 1px solid var(--color-border);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xs);
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .news-item:first-child {
+      padding-top: 0;
+    }
+
+    @media (min-width: 600px) {
+      .news-item {
+        grid-template-columns: 190px 1fr;
+        align-items: baseline;
+      }
     }
 
     .news-meta {
       display: flex;
       align-items: center;
-      gap: var(--space-md);
-      font-size: 0.875rem;
-    }
-
-    .news-date {
-      color: var(--color-text-sub);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .news-tag {
-      background-color: #ffffff;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-main);
-      padding: 2px 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border-radius: 2px;
-    }
-
-    .news-content {
-      font-weight: 500;
-    }
-
-    /* ==========================================================
-       研究内容（Cards）
-       ========================================================== */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-xl);
-    }
-
-    .ds-card {
-      background-color: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: var(--space-xl);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .ds-card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin-bottom: var(--space-sm);
-      line-height: 1.4;
-    }
-
-    .ds-card-text {
-      color: var(--color-text-sub);
-      font-size: 0.9375rem;
-      flex-grow: 1;
-    }
-
-    /* ==========================================================
-       ボタンコンポーネント（アクセシブル・タッチターゲット対応）
-       ========================================================== */
-    .ds-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 10px 24px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 4px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: background-color 0.15s ease, border-color 0.15s ease;
-    }
-
-    .ds-btn-primary {
-      background-color: var(--color-primary);
-      color: #ffffff;
-    }
-    .ds-btn-primary:hover {
-      background-color: var(--color-primary-hover);
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .ds-btn-outline {
-      background-color: transparent;
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
-    .ds-btn-outline:hover {
-      background-color: var(--color-primary-subtle);
-      color: var(--color-primary-hover);
-      text-decoration: none;
-    }
-
-    /* ==========================================================
-       論文リスト・順序付きリスト
-       ========================================================== */
-    .publication-list {
-      padding-left: 1.5rem;
-    }
-
-    .publication-list li {
-      margin-bottom: var(--space-md);
-      color: var(--color-text-main);
-      font-size: 0.9375rem;
-    }
-
-    /* ==========================================================
-       フッター
-       ========================================================== */
-    footer {
-      background-color: var(--color-bg-surface);
-      border-top: 1px solid var(--color-border);
-      padding: var(--space-2xl) var(--space-lg);
-      font-size: 0.875rem;
-      color: var(--color-text-sub);
-    }
-
-    .footer-container {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-lg);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-md) var(--space-xl);
-      list-style: none;
-    }
-
-    .footer-copyright {
-      padding-top: var(--space-md);
-      border-top: 1px solid var(--color-border);
-      text-align: center;
+      gap: 12px;
       font-size: 0.8125rem;
     }
 
-    /* レスポンシブ対応 */
+    .news-date {
+      font-variant-numeric: tabular-nums;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .news-cat {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 1px 8px;
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .news-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       6. Research Themes (角丸影カードを廃止し、番号付き構造化リストへ)
+       ========================================================================== */
+    .research-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .research-item {
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--border-hairline);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .research-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
     @media (min-width: 640px) {
-      .news-item {
-        flex-direction: row;
-        align-items: baseline;
-        gap: var(--space-lg);
-      }
-      .news-meta {
-        width: 220px;
-        flex-shrink: 0;
+      .research-item {
+        grid-template-columns: 56px 1fr;
       }
     }
 
-    @media (max-width: 640px) {
-      .hero-headline {
-        font-size: 1.75rem;
+    .research-num {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      padding-top: 4px;
+    }
+
+    .research-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .research-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .keyword-tag {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      background-color: var(--bg-subtle);
+      padding: 2px 10px;
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       7. Publications & Awards (MASUKO LAB式：Highlights + 年次別アーカイブ)
+       ========================================================================== */
+    .highlights-box {
+      background-color: var(--bg-subtle);
+      padding: var(--space-4);
+      margin-bottom: var(--space-5);
+      border-left: 3px solid var(--accent);
+    }
+
+    .highlights-heading {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .highlights-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.9375rem;
+    }
+
+    .pub-year-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .pub-year {
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-strong);
+      margin-bottom: var(--space-3);
+    }
+
+    .pub-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pub-items li {
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      line-height: 1.65;
+    }
+
+    .pub-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0 6px;
+      margin-left: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .pub-badge:hover {
+      background-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .award-note {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-left: 4px;
+    }
+
+    /* ==========================================================================
+       8. Projects & Grants (共同研究・外部資金・担当授業)
+       ========================================================================== */
+    .sub-block {
+      margin-bottom: var(--space-5);
+    }
+    .sub-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .sub-block-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+      color: var(--text-primary);
+    }
+
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    .simple-table tr {
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .simple-table th,
+    .simple-table td {
+      padding: 12px 0;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .simple-table th {
+      width: 120px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+      padding-right: 16px;
+    }
+
+    /* ==========================================================================
+       9. Members & Prospective Students
+       ========================================================================== */
+    .pi-profile {
+      padding-bottom: var(--space-4);
+      margin-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .pi-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pi-role {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    /* PayPay & デジタル庁準拠：操作ボタンの一貫性と最小タップ領域(48px) */
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 24px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      background-color: var(--text-primary);
+      color: #ffffff;
+      border: 1px solid var(--text-primary);
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .action-btn-outline {
+      background-color: transparent;
+      color: var(--text-primary);
+    }
+
+    .action-btn-outline:hover {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border-color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       10. PayPay Mini App Design Guide準拠：スマホ用ボトムナビゲーション
+       ========================================================================== */
+    .bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        display: none;
       }
-      nav ul {
-        gap: var(--space-md);
+
+      body {
+        padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
       }
+
+      .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
+        padding-bottom: env(safe-area-inset-bottom);
+        background: rgba(255, 255, 255, 0.98);
+        border-top: 1px solid var(--border-hairline);
+        z-index: 1000;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        height: 100%;
+        color: var(--text-secondary);
+        font-size: 0.6875rem;
+        font-weight: 700;
+        gap: 4px;
+      }
+
+      .bottom-nav-item:hover,
+      .bottom-nav-item:active {
+        color: var(--accent);
+      }
+
+      /* PayPayガイドライン準拠：24px × 24px 単色ラインアイコン */
+      .bottom-nav-icon {
+        width: 24px;
+        height: 24px;
+        stroke: currentColor;
+        stroke-width: 1.75;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    }
+
+    /* フッター */
+    footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-5) var(--space-4);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
     }
   </style>
 </head>
 <body>
 
-  <!-- 本文スキップリンク（アクセシビリティ対応） -->
-  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <!-- アクセシビリティ：本文スキップ -->
+  <a href="#main" class="skip-link">本文へスキップ</a>
 
   <!-- ヘッダー -->
-  <header>
-    <div class="header-container">
-      <div class="site-brand">
-        <span class="site-affiliation">〇〇大学 〇〇学部 〇〇学科</span>
-        <a href="#" class="site-title">〇〇研究室</a>
-      </div>
-      <nav aria-label="メインナビゲーション">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <span class="brand-name">〇〇 LAB</span>
+        <span class="brand-divider">|</span>
+        <span class="brand-sub">〇〇大学 〇〇学科</span>
+      </a>
+      <nav class="top-nav" aria-label="グローバルナビゲーション">
         <ul>
-          <li><a href="#news">お知らせ</a></li>
-          <li><a href="#research">研究内容</a></li>
-          <li><a href="#members">メンバー</a></li>
-          <li><a href="#publications">業績</a></li>
-          <li><a href="#students">配属希望</a></li>
-          <li><a href="#contact">アクセス</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#members">Members</a></li>
+          <li><a href="#join">Join Us</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
-  <main id="main-content">
-
-    <!-- ヒーローセクション -->
-    <section class="hero" aria-label="研究室紹介">
-      <div class="hero-container">
-        <span class="hero-lead-badge">Laboratory Website</span>
-        <h1 class="hero-headline">情報数理と先端技術で、<br>実社会の複雑な課題を解き明かす。</h1>
-        <p class="hero-text">
-          当研究室では、〇〇理論と計算機科学の融合を軸に、次世代アルゴリズムの開発やデータ解析手法の研究を進めています。基礎数理の探究から社会実装まで、一人ひとりの知的好奇心を尊重した研究活動を展開しています。
-        </p>
-      </div>
-    </section>
-
-    <!-- 告知コールアウト（大学院・学部配属の募集告知） -->
-    <div class="container" style="padding-top: var(--space-2xl); padding-bottom: 0;">
-      <aside class="ds-callout" role="note" aria-labelledby="callout-heading">
-        <h2 id="callout-heading" class="ds-callout-title">研究室配属・大学院進学を検討されている方へ</h2>
-        <p>学部生の研究室配属および大学院（修士・博士）進学の相談・見学を随時受け付けています。研究室の雰囲気や研究テーマについての質問など、お気軽にメールにてお問い合わせください。</p>
-        <div style="margin-top: var(--space-md);">
-          <a href="#students" class="ds-btn ds-btn-primary" style="min-height: 40px; padding: 6px 16px; font-size: 0.9375rem;">配属・募集詳細を見る</a>
-        </div>
-      </aside>
-    </div>
-
-    <!-- お知らせ (News) -->
-    <section id="news" class="container">
-      <div class="section-header">
-        <h2 class="section-title">お知らせ</h2>
-        <p class="section-subtitle">News & Updates</p>
-      </div>
-      <ul class="news-list">
-        <li class="news-item">
-          <div class="news-meta">
-            <time class="news-date" datetime="2026-10-15">2026年10月15日</time>
-            <span class="news-tag">学会発表</span>
-          </div>
-          <div class="news-content">
-            修士2年の〇〇さんが「〇〇に関する研究」について〇〇シンポジウムで口頭発表を行いました。
-          </div>
-        </li>
-        <li class="news-item">
-          <div class="news-meta">
-            <time class="news-date" datetime="2026-09-20">2026年9月20日</time>
-            <span class="news-tag">論文採択</span>
-          </div>
-          <div class="news-content">
-            学術誌『〇〇〇〇 Journal』に当研究室の共著論文が採択されました。
-          </div>
-        </li>
-        <li class="news-item">
-          <div class="news-meta">
-            <time class="news-date" datetime="2026-07-30">2026年7月30日</time>
-            <span class="news-tag">見学会</span>
-          </div>
-          <div class="news-content">
-            オープンキャンパスにて研究室公開およびデモ展示を実施しました。
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- 研究内容 (Research) -->
-    <section id="research" class="container" style="background-color: var(--color-bg-surface); max-width: 100%; width: 100%;">
-      <div style="max-width: 1080px; margin: 0 auto;">
-        <div class="section-header">
-          <h2 class="section-title">研究テーマ</h2>
-          <p class="section-subtitle">Research Themes</p>
-        </div>
-        <div class="card-grid">
-          <article class="ds-card">
-            <h3 class="ds-card-title">1. 数理モデリングとシミュレーション</h3>
-            <p class="ds-card-text">
-              複雑な現実世界のダイナミクスを微分方程式や確率過程を用いてモデル化し、計算機上での数値シミュレーションを通じて本質的な挙動の解明を目指します。
-            </p>
-          </article>
-          <article class="ds-card">
-            <h3 class="ds-card-title">2. 機械学習・最適化アルゴリズム</h3>
-            <p class="ds-card-text">
-              高次元・非構造化データを効率的かつ頑健に処理するための数理最適化手法や、深層学習モデルの解釈可能性・幾何的性質に関する理論研究を進めています。
-            </p>
-          </article>
-          <article class="ds-card">
-            <h3 class="ds-card-title">3. 実社会課題への応用と共同研究</h3>
-            <p class="ds-card-text">
-              医療・交通・エネルギーなど、実社会の課題解決に向けた産学連携プロジェクトを推進。理論の実証実験と社会実装に取り組んでいます。
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- メンバー (Members) -->
-    <section id="members" class="container">
-      <div class="section-header">
-        <h2 class="section-title">メンバー</h2>
-        <p class="section-subtitle">Members</p>
-      </div>
-      <div class="card-grid">
-        <div class="ds-card">
-          <h3 class="ds-card-title">指導教員：教授 〇〇 〇〇（Professor Name）</h3>
-          <p class="ds-card-text" style="margin-bottom: var(--space-sm);">
-            <strong>専門分野:</strong> 〇〇学、〇〇数理、データサイエンス<br>
-            <strong>担当科目:</strong> 〇〇概論、〇〇特論
+  <main id="main">
+    <!-- ヒーローエリア（非対称・エディトリアル構成） -->
+    <section class="hero" aria-label="研究室コンセプト">
+      <span class="hero-kicker">Mathematical Modeling &amp; Information Geometry</span>
+      <div class="hero-grid">
+        <h1 class="hero-title">
+          数理構造と計算の視点から、<br>複雑な現象の本質を記述する。
+        </h1>
+        <div>
+          <p class="hero-lead">
+            〇〇研究室では、応用数学・数理モデリング・機械学習を基盤に、データの背後に潜む幾何学的構造の解明とアルゴリズム設計に取り組んでいます。基礎理論の構築からシミュレーション・社会応用までを一貫して探究します。
           </p>
-          <div>
-            <a href="#" target="_blank" rel="noopener noreferrer">researchmap (外部リンク) &rarr;</a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div><strong>Affiliation</strong>〇〇大学 〇〇学部 〇〇学科</div>
+        <div><strong>Location</strong>〇〇キャンパス 〇号館 〇F</div>
+        <div><strong>Contact</strong><a href="#join" style="text-decoration: underline;">研究室配属・見学の案内 &rarr;</a></div>
+      </div>
+    </section>
+
+    <!-- 1. NEWS -->
+    <section id="news" class="section">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">01 / News</span>
+          <h2 class="section-jp">お知らせ</h2>
+        </div>
+        <div>
+          <ul class="news-list">
+            <li class="news-item">
+              <div class="news-meta">
+                <time class="news-date" datetime="2026-10-12">2026.10.12</time>
+                <span class="news-cat">学会</span>
+              </div>
+              <div class="news-title">
+                国際会議 〇〇 2026 にて研究成果2件を口頭発表しました。
+              </div>
+            </li>
+            <li class="news-item">
+              <div class="news-meta">
+                <time class="news-date" datetime="2026-09-18">2026.09.18</time>
+                <span class="news-cat">受賞</span>
+              </div>
+              <div class="news-title">
+                第〇〇回〇〇研究会にて学生奨励賞を受賞しました。
+              </div>
+            </li>
+            <li class="news-item">
+              <div class="news-meta">
+                <time class="news-date" datetime="2026-08-05">2026.08.05</time>
+                <span class="news-cat">研究室</span>
+              </div>
+              <div class="news-title">
+                2026年度 学部3年生向けの研究室公開・説明会を実施しました。
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. RESEARCH -->
+    <section id="research" class="section">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">02 / Research</span>
+          <h2 class="section-jp">研究領域</h2>
+        </div>
+        <div class="research-list">
+          <article class="research-item">
+            <div class="research-num">01</div>
+            <div>
+              <h3 class="research-title">情報幾何学と統計的推論・最適化</h3>
+              <p class="research-desc">
+                確率分布の空間に双対平坦なリーマン多様体の構造を導入し、BregmanダイバージェンスやFisher情報計量を用いた高効率な学習・推論アルゴリズムを構築しています。
+              </p>
+              <ul class="keyword-list">
+                <li class="keyword-tag">Information Geometry</li>
+                <li class="keyword-tag">Optimal Transport</li>
+                <li class="keyword-tag">Machine Learning</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="research-item">
+            <div class="research-num">02</div>
+            <div>
+              <h3 class="research-title">非線形力学系と数理モデリング</h3>
+              <p class="research-desc">
+                生態系、感染症伝播、社会ネットワークなどの時間発展現象を常微分方程式・偏微分方程式によって定式化し、相空間解析と数値シミュレーションから安定性や分岐現象を解明します。
+              </p>
+              <ul class="keyword-list">
+                <li class="keyword-tag">Dynamical Systems</li>
+                <li class="keyword-tag">Differential Equations</li>
+                <li class="keyword-tag">Numerical Simulation</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="research-item">
+            <div class="research-num">03</div>
+            <div>
+              <h3 class="research-title">視覚情報処理と実社会データ解析</h3>
+              <p class="research-desc">
+                深層学習や最適輸送理論を応用し、画像認識・特徴点検出・時系列データ解析など、実社会のシステムと連携した共同研究・実装プロジェクトを推進しています。
+              </p>
+              <ul class="keyword-list">
+                <li class="keyword-tag">Computer Vision</li>
+                <li class="keyword-tag">Data Science</li>
+                <li class="keyword-tag">Social Implementation</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PUBLICATIONS & AWARDS (MASUKO LAB式のハイライト＋年次別構成) -->
+    <section id="publications" class="section">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">03 / Publications</span>
+          <h2 class="section-jp">研究業績・受賞</h2>
+        </div>
+        <div>
+          <!-- Selected Highlights -->
+          <div class="highlights-box">
+            <div class="highlights-heading">Selected Highlights</div>
+            <ul class="highlights-list">
+              <li><strong>International Conference 2026</strong> — 査読付き国際会議にて2件の論文が採択（口頭発表）。</li>
+              <li><strong>Best Presentation Award</strong> — 〇〇学会シンポジウム2026にて優秀発表賞を受賞。</li>
+            </ul>
+          </div>
+
+          <!-- 2026 -->
+          <div class="pub-year-group">
+            <h3 class="pub-year">2026</h3>
+            <ul class="pub-items">
+              <li>
+                著者A, 著者B: 「双対平坦空間における最適輸送アルゴリズムの収束解析」, <em>〇〇学会論文誌</em>, Vol. 42, No. 3, pp. 110–118, 2026.
+                <a href="#" class="pub-badge">PDF</a>
+                <a href="#" class="pub-badge">DOI</a>
+              </li>
+              <li>
+                著者C, 著者A: 「非線形微分方程式モデルを用いた〇〇ダイナミクスの数値解析」, <em>第〇〇回〇〇シンポジウム論文集</em>, pp. 45–50, 2026.
+                <span class="award-note">（研究奨励賞 受賞）</span>
+                <a href="#" class="pub-badge">PDF</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 2025 -->
+          <div class="pub-year-group">
+            <h3 class="pub-year">2025</h3>
+            <ul class="pub-items">
+              <li>
+                Author A, Author B: "Geometric Optimization on Statistical Manifolds", <em>Proceedings of International Conference on Information Science</em>, pp. 210–217, 2025.
+                <a href="#" class="pub-badge">DOI</a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="ds-card">
-          <h3 class="ds-card-title">在籍学生</h3>
-          <ul style="padding-left: 1.25rem; line-height: 1.8; color: var(--color-text-sub);">
-            <li>博士課程後期（D）：〇名</li>
-            <li>博士課程前期 / 修士課程（M）：〇名</li>
-            <li>学部4年生（B4）：〇名</li>
-          </ul>
+      </div>
+    </section>
+
+    <!-- 4. PROJECTS & GRANTS -->
+    <section id="projects" class="section">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">04 / Projects</span>
+          <h2 class="section-jp">研究助成・担当授業</h2>
+        </div>
+        <div>
+          <div class="sub-block">
+            <h3 class="sub-block-title">競争的資金・共同研究</h3>
+            <table class="simple-table">
+              <tbody>
+                <tr>
+                  <th>2025–現在</th>
+                  <td>日本学術振興会 科学研究費助成事業 基盤研究(C)「〇〇空間における数理最適化と応用」</td>
+                </tr>
+                <tr>
+                  <th>2024–現在</th>
+                  <td>民間企業との共同研究「実環境データに基づく予測モデリング技術の構築」</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sub-block">
+            <h3 class="sub-block-title">担当授業</h3>
+            <table class="simple-table">
+              <tbody>
+                <tr>
+                  <th>学部</th>
+                  <td>微分方程式 / 数理モデリング / 情報数学演習 / 卒業研究</td>
+                </tr>
+                <tr>
+                  <th>大学院</th>
+                  <td>情報数理特論 / 数理科学特別研究</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 研究業績 (Publications) -->
-    <section id="publications" class="container" style="background-color: var(--color-bg-surface); max-width: 100%; width: 100%;">
-      <div style="max-width: 1080px; margin: 0 auto;">
-        <div class="section-header">
-          <h2 class="section-title">主な研究業績</h2>
-          <p class="section-subtitle">Selected Publications</p>
+    <!-- 5. MEMBERS -->
+    <section id="members" class="section">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">05 / Members</span>
+          <h2 class="section-jp">メンバー</h2>
         </div>
-        <ol class="publication-list">
-          <li>
-            T. Tanaka, Y. Hashimoto, "Fast Optimization on Manifolds for Structured Data Analysis", <em>Journal of Information Mathematics</em>, Vol. 15, No. 2, pp. 112-124, 2026. DOI: 10.xxxx/xxxx
-          </li>
-          <li>
-            Y. Hashimoto, S. Suzuki, "Dynamic Simulation of Complex Network Systems", <em>Proceedings of the International Conference on Applied Mathematics (ICAM2025)</em>, pp. 45-52, 2025.
-          </li>
-        </ol>
-        <div style="margin-top: var(--space-lg);">
-          <a href="#" class="ds-btn ds-btn-outline" target="_blank" rel="noopener noreferrer">業績一覧（Google Scholar）を開く</a>
+        <div>
+          <div class="pi-profile">
+            <h3 class="pi-name">〇〇 〇〇（Name Surname）</h3>
+            <p class="pi-role">〇〇大学 〇〇学部 〇〇学科 教授 / 博士（数理科学）</p>
+            <p style="font-size: 0.9375rem; color: var(--text-secondary); margin-bottom: 16px;">
+              〇〇大学大学院博士後期課程修了。〇〇研究所研究員、〇〇大学准教授を経て現職。専門は情報幾何学、数理モデリング、統計的機械学習。
+            </p>
+            <div style="display: flex; gap: 16px; font-size: 0.875rem; font-weight: 700;">
+              <a href="#" style="color: var(--accent); text-decoration: underline;">researchmap &rarr;</a>
+              <a href="#" style="color: var(--accent); text-decoration: underline;">Google Scholar &rarr;</a>
+            </div>
+          </div>
+
+          <table class="simple-table">
+            <tbody>
+              <tr>
+                <th>博士課程</th>
+                <td>D2：1名</td>
+              </tr>
+              <tr>
+                <th>修士課程</th>
+                <td>M2：4名 ／ M1：5名</td>
+              </tr>
+              <tr>
+                <th>学部生</th>
+                <td>B4：8名 ／ B3：7名</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- 配属希望の方へ (For Students) -->
-    <section id="students" class="container">
-      <div class="section-header">
-        <h2 class="section-title">配属・進学希望の方へ</h2>
-        <p class="section-subtitle">For Prospective Students</p>
-      </div>
-      <div style="max-width: 820px;">
-        <p style="margin-bottom: var(--space-md);">
-          当研究室では、学部からの卒業研究配属はもちろん、他大学・高専からの大学院入試（修士課程・博士課程）を通じた進学を幅広く歓迎しています。
-        </p>
-        <div class="ds-card" style="margin-bottom: var(--space-lg); background-color: var(--color-bg-surface);">
-          <h3 style="font-size: 1.125rem; margin-bottom: var(--space-xs); color: var(--color-text-main);">求める人物像・推奨される素養</h3>
-          <ul style="padding-left: 1.25rem; color: var(--color-text-sub); line-height: 1.8;">
-            <li>数学・プログラミング、論理的思考に興味や関心がある方</li>
-            <li>自ら課題を設定し、主体的に探究を進める意欲のある方</li>
-            <li>配属前の専門知識よりも、配属後の学習意欲・探究心を重視します</li>
-          </ul>
+    <!-- 6. JOIN US / CONTACT (操作ボタンの一貫性) -->
+    <section id="join" class="section" style="border-bottom: none;">
+      <div class="section-grid">
+        <div class="section-head">
+          <span class="section-en">06 / Join Us</span>
+          <h2 class="section-jp">配属・進学希望の方へ</h2>
         </div>
-        <p>
-          研究室の見学や教員・先輩学生との面談（対面・オンライン両対応）は年間を通じて受け付けています。まずは以下の連絡先までご相談ください。
-        </p>
+        <div>
+          <p style="font-size: 0.9375rem; color: var(--text-secondary); margin-bottom: var(--space-4);">
+            当研究室では、卒業研究で配属を希望する学部生、および大学院（修士課程・博士課程）への進学希望者を歓迎しています。C言語やPythonによる数値計算・プログラミング、TeXを用いた論文執筆、ゼミでの輪講を通じて、基礎から研究力を養う環境を整えています。
+          </p>
+
+          <table class="simple-table" style="margin-bottom: var(--space-5);">
+            <tbody>
+              <tr>
+                <th>所在地</th>
+                <td>〒000-0000 〇〇県〇〇市〇〇 1-2-3 〇〇キャンパス 〇号館</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>contact [at] example.ac.jp（[at]を@に変えて送信してください）</td>
+              </tr>
+              <tr>
+                <th>SNS</th>
+                <td><a href="https://x.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">公式X（旧Twitter）アカウント &rarr;</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- PayPay / デジタル庁準拠：役割とラベルを統一したアクションボタン -->
+          <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            <a href="mailto:contact@example.ac.jp" class="action-btn">
+              研究室見学・面談を申し込む
+            </a>
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-outline">
+              公式Xで最新情報を見る
+            </a>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- アクセス・連絡先 (Contact) -->
-    <section id="contact" class="container" style="border-top: 1px solid var(--color-border);">
-      <div class="section-header">
-        <h2 class="section-title">アクセス & 連絡先</h2>
-        <p class="section-subtitle">Access & Contact</p>
-      </div>
-      <address style="font-style: normal; line-height: 1.9; max-width: 720px;">
-        <p><strong>所在地:</strong> 〒000-0000 〇〇県〇〇市〇〇 1-2-3</p>
-        <p>〇〇大学 〇〇キャンパス 〇号館 〇階 〇〇研究室</p>
-        <p style="margin-top: var(--space-sm);">
-          <strong>E-mail:</strong> contact [at] example.ac.jp（[at] を @ に置き換えてください）
-        </p>
-        <p>
-          <strong>公式X (Twitter):</strong>
-          <a href="https://x.com/your_lab_account" target="_blank" rel="noopener noreferrer">@your_lab_account (外部リンク)</a>
-        </p>
-      </address>
-    </section>
-
   </main>
 
   <!-- フッター -->
   <footer>
-    <div class="footer-container">
-      <div>
-        <p style="font-weight: 700; color: var(--color-text-main); margin-bottom: 4px;">〇〇大学 〇〇学部 〇〇学科 〇〇研究室</p>
-        <p>Laboratory Name, Department, University</p>
-      </div>
-      <ul class="footer-links">
-        <li><a href="#main-content">ページ上部へ戻る</a></li>
-        <li><a href="https://x.com/your_lab_account" target="_blank" rel="noopener noreferrer">公式Xアカウント</a></li>
-        <li><a href="#" target="_blank" rel="noopener noreferrer">大学公式サイト</a></li>
-      </ul>
-      <div class="footer-copyright">
-        &copy; 2026 Laboratory Name. All Rights Reserved.
-      </div>
-    </div>
+    <div>&copy; 2026 〇〇 LAB, Department of Mathematical Sciences. All Rights Reserved.</div>
+    <div><a href="#main">Back to top &uarr;</a></div>
   </footer>
+
+  <!-- PayPay Mini App Design Guide準拠：モバイル専用ボトムナビゲーション (24x24px 単色線画アイコン) -->
+  <nav class="bottom-nav" aria-label="モバイルボトムナビゲーション">
+    <a href="#news" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h10"/>
+      </svg>
+      <span>News</span>
+    </a>
+    <a href="#research" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 3v18M3 12h18"/>
+      </svg>
+      <span>Research</span>
+    </a>
+    <a href="#publications" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      <span>Papers</span>
+    </a>
+    <a href="#members" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+      </svg>
+      <span>Members</span>
+    </a>
+    <a href="#join" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+      <span>Join Us</span>
+    </a>
+  </nav>
 
 </body>
 </html>
